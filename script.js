@@ -16,6 +16,37 @@
   const footer = document.getElementById('contacts');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Telegram на телефоне — сразу в приложении ---------- */
+  // Сайт t.me блокируют, например, мобильные операторы во Вьетнаме — в браузере телефона ссылка
+  // падает с ошибкой. Ссылка tg:// открывает приложение Telegram напрямую, минуя t.me.
+  const ua = navigator.userAgent;
+  const isAndroid = /Android/i.test(ua);
+  const isMobile = isAndroid || /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  const telegramHref = (httpsUrl) => {
+    if (!isMobile) return httpsUrl;
+    const url = new URL(httpsUrl);
+    const domain = url.pathname.split('/')[1];
+    const text = url.searchParams.get('text');
+    const query = `domain=${domain}${text ? `&text=${encodeURIComponent(text)}` : ''}`;
+    // Android: если Telegram не установлен, Chrome сам откроет обычную ссылку
+    return isAndroid
+      ? `intent://resolve?${query}#Intent;scheme=tg;S.browser_fallback_url=${encodeURIComponent(httpsUrl)};end`
+      : `tg://resolve?${query}`;
+  };
+
+  const openTelegram = (httpsUrl) => {
+    if (isMobile) window.location.href = telegramHref(httpsUrl);
+    else window.open(httpsUrl, '_blank', 'noopener');
+  };
+
+  if (isMobile) {
+    document.querySelectorAll('a[href^="https://t.me/"]').forEach((link) => {
+      link.href = telegramHref(link.href);
+      link.removeAttribute('target');
+    });
+  }
+
   /* ---------- Мобильное меню ---------- */
   const setMenu = (open) => {
     menu.classList.toggle('hidden', !open);
@@ -138,7 +169,8 @@
 
     // Копируем текст на случай, если мессенджер не подставит его сам
     if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
-    window.open(url, '_blank', 'noopener');
+    if (viaWhatsApp) window.open(url, '_blank', 'noopener');
+    else openTelegram(url);
 
     reviewStatus.textContent = 'Спасибо за отзыв! Открываю чат — если текст не подставился сам, просто вставьте его: он уже скопирован.';
     reviewStatus.classList.remove('hidden');
@@ -190,7 +222,7 @@
 
     // Сервер ещё не подключён — сразу открываем Telegram с готовым текстом
     if (!leadForm.dataset.endpoint) {
-      window.open(telegramUrl, '_blank', 'noopener');
+      openTelegram(telegramUrl);
       showLeadStatus('Открываю Telegram с готовой заявкой — осталось нажать «Отправить».', true);
       return;
     }
@@ -209,7 +241,7 @@
       leadForm.reset();
       showLeadStatus('Спасибо! Заявка отправлена — скоро свяжусь с вами.', true);
     } catch (err) {
-      showLeadStatus(`Не получилось отправить заявку. <a class="font-semibold underline" href="${telegramUrl}" target="_blank" rel="noopener">Отправьте её в Telegram</a> — текст уже готов.`, false);
+      showLeadStatus(`Не получилось отправить заявку. <a class="font-semibold underline" href="${telegramHref(telegramUrl)}"${isMobile ? '' : ' target="_blank" rel="noopener"'}>Отправьте её в Telegram</a> — текст уже готов.`, false);
     } finally {
       button.disabled = false;
     }
