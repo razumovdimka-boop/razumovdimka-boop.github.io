@@ -1,0 +1,224 @@
+/* =========================================================
+   Свой CRM — стили приложения (в дополнение к Tailwind CSS)
+   Палитра и шрифты совпадают с сайтом «Свой на Фукуоке»
+   ========================================================= */
+
+:root {
+  --paper: #F5F0E8;
+  --ink: #10201E;
+  --lagoon: #1F8A7E;
+  --sunset: #F26A3D;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+}
+
+/* Та же лёгкая «бумажная» фактура, что на сайте */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+body.sheet-lock { overflow: hidden; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Отклик на нажатие, как в нативных приложениях */
+.press { transition: transform 0.15s ease; }
+.press:active { transform: scale(0.98); }
+
+/* Плавное появление экрана — только при переходе между разделами */
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+#view.view-enter > * { animation: view-in 0.4s var(--ease-out) both; }
+
+/* Пульсирующая точка «на острове» */
+.live-dot {
+  position: relative;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #5EEAD4;
+}
+
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: ping 2s ease-out infinite;
+}
+
+@keyframes ping {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* ---------- Нижнее меню: «стеклянная» капсула, как шапка сайта ---------- */
+.tabbar {
+  background-color: rgb(245 240 232 / 0.82);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  backdrop-filter: saturate(160%) blur(18px);
+  box-shadow: inset 0 0 0 1px rgb(16 32 30 / 0.07), 0 16px 40px -18px rgb(16 32 30 / 0.35);
+}
+
+.tab {
+  display: flex;
+  min-width: 3.75rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 4px;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: rgb(16 32 30 / 0.42);
+  transition: color 0.2s ease;
+}
+
+.tab svg { width: 24px; height: 24px; }
+.tab.is-active { color: var(--ink); font-weight: 600; }
+
+/* ---------- Нижняя шторка ---------- */
+#sheet-root .sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgb(16 32 30 / 0.38);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#sheet-root .sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 71;
+  display: flex;
+  height: 92dvh;
+  max-width: 28rem;
+  flex-direction: column;
+  margin: 0 auto;
+  border-radius: 2rem 2rem 0 0;
+  background: var(--paper);
+  box-shadow: 0 -24px 60px -24px rgb(16 32 30 / 0.45);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#sheet-root .sheet::before {
+  content: "";
+  flex-shrink: 0;
+  width: 40px;
+  height: 5px;
+  margin: 8px auto 0;
+  border-radius: 9999px;
+  background: rgb(16 32 30 / 0.15);
+}
+
+#sheet-root.is-open .sheet-backdrop { opacity: 1; }
+#sheet-root.is-open .sheet { transform: none; }
+
+/* ---------- Поля формы в стиле iOS: группа строк ---------- */
+.group-list {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(16 32 30 / 0.06);
+}
+
+.row {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1rem;
+}
+
+.row + .row { border-top: 1px solid rgb(16 32 30 / 0.07); }
+
+.row-label {
+  width: 6.25rem;
+  flex-shrink: 0;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+/* 16px — чтобы iPhone не увеличивал страницу при вводе */
+.row-input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.8rem 0;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  color: var(--ink);
+  outline: none;
+}
+
+.row-input::placeholder { color: rgb(74 88 86 / 0.5); }
+.row-input[type="date"],
+.row-input[type="time"] { min-height: 1.5em; -webkit-appearance: none; appearance: none; }
+
+.field-legend {
+  margin: 0 0 0.6rem 0.25rem;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4A5856;
+}
+
+@keyframes shake {
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.shake { animation: shake 0.4s ease; }
+
+/* ---------- Уведомление ---------- */
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 96px);
+  z-index: 80;
+  max-width: calc(100% - 32px);
+  padding: 0.75rem 1.15rem;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- Уважаем настройку «уменьшить движение» ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #view.view-enter > *,
+  .live-dot::after,
+  .shake { animation: none; }
+  #sheet-root .sheet,
+  #sheet-root .sheet-backdrop { transition: none; }
+}

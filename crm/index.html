@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Свой CRM — клиенты на Фукуоке</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F5F0E8">
+
+  <!-- Приложение на телефон (PWA) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Свой CRM">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Те же шрифты, что и на сайте -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS через CDN, палитра как у сайта -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper:  { DEFAULT: '#F5F0E8', deep: '#ECE4D6' },
+            ink:    { DEFAULT: '#10201E', soft: '#4A5856' },
+            lagoon: { 50: '#EEF7F4', 100: '#DCEFE9', 300: '#8CCFC2', 500: '#1F8A7E', 700: '#0F534D', 800: '#0B3D39', 900: '#072B28' },
+            sunset: { DEFAULT: '#F26A3D', soft: '#FBD3BD' },
+            tg:     { DEFAULT: '#229ED9', dark: '#1B8AC0' }
+          },
+          fontFamily: {
+            sans:  ['Onest', 'Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif']
+          },
+          letterSpacing: { tightest: '-0.045em' }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body class="bg-paper font-sans text-ink antialiased">
+
+  <div class="mx-auto min-h-[100dvh] max-w-md">
+    <main id="view" class="pb-36"></main>
+  </div>
+
+  <!-- ================= НИЖНЕЕ МЕНЮ ================= -->
+  <nav class="fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(env(safe-area-inset-bottom)+10px)]" aria-label="Разделы">
+    <div class="tabbar mx-auto flex h-[4.25rem] max-w-md items-center justify-around rounded-[1.75rem] px-1">
+      <a href="#/today" data-tab="today" class="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        Сегодня
+      </a>
+      <a href="#/clients" data-tab="clients" class="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Клиенты
+      </a>
+      <button type="button" data-action="new" aria-label="Добавить клиента"
+              class="grid h-14 w-14 -translate-y-2.5 place-items-center rounded-full bg-ink text-paper shadow-[0_14px_30px_-10px_rgba(16,32,30,0.7)] transition active:scale-95">
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <a href="#/arrivals" data-tab="arrivals" class="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+        Прилёты
+      </a>
+      <a href="#/more" data-tab="more" class="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg>
+        Ещё
+      </a>
+    </div>
+  </nav>
+
+  <!-- Нижняя шторка (добавление и редактирование клиента) -->
+  <div id="sheet-root"></div>
+
+  <!-- Короткие уведомления -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Восстановление из резервной копии -->
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+
+  <noscript><p style="padding:24px">Для работы приложения включите JavaScript.</p></noscript>
+  <script src="app.js" defer></script>
+</body>
+</html>
