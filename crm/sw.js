@@ -2,7 +2,7 @@
    Свой CRM — service worker: приложение открывается без интернета.
    После изменения файлов увеличьте номер версии в CACHE.
    ========================================================= */
-const CACHE = 'svoy-crm-v3';
+const CACHE = 'svoy-crm-v4';
 
 // Чужие адреса кэшируем только для шрифтов и Tailwind; запросы к серверу заявок идут мимо кэша
 const CACHEABLE_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdn.tailwindcss.com'];

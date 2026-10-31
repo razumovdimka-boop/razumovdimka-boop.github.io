@@ -286,14 +286,20 @@
   };
 
   /* ---------- Ссылки для связи ---------- */
+  // На телефоне открываем мессенджеры напрямую: сайт t.me, например, блокируют мобильные операторы во Вьетнаме
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
   const contactLinks = (c) => {
     const links = [];
     const tg = (c.telegram || '').replace(/^@/, '');
     const digits = (c.phone || '').replace(/\D/g, '');
-    const tgHref = (tg && `https://t.me/${tg}`) || (c.tgId && `tg://user?id=${c.tgId}`) || (digits && `https://t.me/+${digits}`);
+    const tgHref = isMobile
+      ? (tg && `tg://resolve?domain=${tg}`) || (c.tgId && `tg://user?id=${c.tgId}`) || (digits && `tg://resolve?phone=${digits}`)
+      : (tg && `https://t.me/${tg}`) || (c.tgId && `tg://user?id=${c.tgId}`) || (digits && `https://t.me/+${digits}`);
+    const waHref = isMobile ? `whatsapp://send?phone=${digits}` : `https://wa.me/${digits}`;
 
-    if (tgHref) links.push({ label: 'Telegram', color: '#229ED9', icon: sourceIcon('telegram', 'h-[18px] w-[18px]'), href: tgHref });
-    if (digits) links.push({ label: 'WhatsApp', color: '#1FA855', icon: sourceIcon('whatsapp', 'h-[18px] w-[18px]'), href: `https://wa.me/${digits}` });
+    if (tgHref) links.push({ label: 'Telegram', color: '#229ED9', icon: sourceIcon('telegram', 'h-[18px] w-[18px]'), href: tgHref, local: tgHref.startsWith('tg:') });
+    if (digits) links.push({ label: 'WhatsApp', color: '#1FA855', icon: sourceIcon('whatsapp', 'h-[18px] w-[18px]'), href: waHref, local: isMobile });
     if (c.instagram) links.push({ label: 'Instagram', color: '#D62F6B', icon: sourceIcon('instagram', 'h-[18px] w-[18px]'), href: `https://ig.me/m/${encodeURIComponent(c.instagram)}` });
     if (digits) links.push({ label: 'Позвонить', color: '#10201E', icon: icon('phone', 'h-[18px] w-[18px]'), href: `tel:+${digits}`, local: true });
 
