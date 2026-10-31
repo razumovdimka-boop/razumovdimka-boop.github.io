@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Свой на Фукуоке — русскоязычный помощник: встреча, жильё, байк</title>
+  <meta name="description" content="Русскоязычный помощник на Фукуоке: встреча у выхода из аэропорта, подбор жилья, аренда байка и помощь в любых ситуациях на острове.">
+  <meta name="theme-color" content="#F5F0E8">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Свой на Фукуоке — русскоязычный помощник">
+  <meta property="og:description" content="Встречу у выхода из аэропорта, подберу жильё, найду байк и решу любой вопрос на месте.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
+
+  <!-- Включаем анимации появления, только если работает JS -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Шрифты: Onest (гротеск с кириллицей) + Cormorant Garamond (курсивные акценты) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS через CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper:  { DEFAULT: '#F5F0E8', deep: '#ECE4D6' },
+            ink:    { DEFAULT: '#10201E', soft: '#4A5856' },
+            lagoon: { 50: '#EEF7F4', 100: '#DCEFE9', 300: '#8CCFC2', 500: '#1F8A7E', 700: '#0F534D', 800: '#0B3D39', 900: '#072B28' },
+            sunset: { DEFAULT: '#F26A3D', soft: '#FBD3BD' },
+            tg:     { DEFAULT: '#229ED9', dark: '#1B8AC0' }
+          },
+          fontFamily: {
+            sans:  ['Onest', 'Inter', 'system-ui', 'sans-serif'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif']
+          },
+          letterSpacing: { tightest: '-0.045em' }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-paper font-sans text-ink antialiased selection:bg-sunset/25">
+
+  <!-- ================= ШАПКА ================= -->
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+    <div class="header-bar mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full px-2 sm:h-16">
+      <a href="#top" class="flex items-center gap-2.5 rounded-full pr-3" aria-label="Свой на Фукуоке — на главную">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon-800 text-paper sm:h-11 sm:w-11">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8.5" r="3.5"/>
+            <path d="M2 16c1.5 0 2.5-1 4-1s2.5 1 4 1 2.5-1 4-1 2.5 1 4 1 2.5-1 4-1"/>
+            <path d="M2 20c1.5 0 2.5-1 4-1s2.5 1 4 1 2.5-1 4-1 2.5 1 4 1 2.5-1 4-1"/>
+          </svg>
+        </span>
+        <span class="text-[15px] font-semibold tracking-tight">Свой на&nbsp;Фукуоке</span>
+      </a>
+
+      <nav class="hidden items-center gap-1 text-[15px] font-medium text-ink-soft lg:flex" aria-label="Основное меню">
+        <a href="#services" class="rounded-full px-4 py-2 transition hover:bg-ink/5 hover:text-ink">Услуги</a>
+        <a href="#how" class="rounded-full px-4 py-2 transition hover:bg-ink/5 hover:text-ink">Как это работает</a>
+        <a href="#reviews" class="rounded-full px-4 py-2 transition hover:bg-ink/5 hover:text-ink">Отзывы</a>
+        <a href="#contacts" class="rounded-full px-4 py-2 transition hover:bg-ink/5 hover:text-ink">Контакты</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5">
+        <a href="https://t.me/razumovdimka" target="_blank" rel="noopener"
+           class="group hidden items-center gap-2.5 rounded-full bg-ink py-1.5 pl-1.5 pr-5 text-sm font-semibold text-paper transition hover:bg-lagoon-800 sm:inline-flex">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-tg text-white">
+            <svg class="h-4 w-4" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </span>
+          Написать
+        </a>
+        <button id="menu-toggle" type="button"
+                class="grid h-11 w-11 place-items-center rounded-full transition hover:bg-ink/5 lg:hidden"
+                aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
+          <svg class="icon-open h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+          <svg class="icon-close hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Мобильное меню -->
+    <div id="mobile-menu" class="mx-auto mt-2 hidden max-w-6xl rounded-[1.75rem] bg-paper/95 p-2 shadow-2xl shadow-ink/10 ring-1 ring-ink/5 backdrop-blur-xl lg:hidden">
+      <nav class="flex flex-col text-lg font-medium" aria-label="Мобильное меню">
+        <a href="#services" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Услуги</a>
+        <a href="#how" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Как это работает</a>
+        <a href="#reviews" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Отзывы</a>
+        <a href="#contacts" class="rounded-2xl px-4 py-3.5 transition hover:bg-ink/5">Контакты</a>
+        <a href="https://t.me/razumovdimka" target="_blank" rel="noopener"
+           class="mt-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-ink px-5 py-4 text-base font-semibold text-paper">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-tg text-white">
+            <svg class="h-4 w-4" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </span>
+          Написать в Telegram
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+    <section id="top" class="hero relative overflow-hidden pt-28 sm:pt-36 lg:pt-40">
+      <div class="mx-auto grid max-w-6xl items-center gap-16 px-4 pb-20 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pb-28">
+
+        <div class="lg:col-span-7">
+          <div class="reveal flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-ink-soft">
+            <span class="inline-flex items-center gap-2 rounded-full bg-lagoon-800 px-3 py-1.5 text-xs font-semibold text-paper">
+              <span class="live-dot" aria-hidden="true"></span>
+              На острове <span data-island-time class="tabular-nums">--:--</span>
+            </span>
+            <span>Русскоязычный помощник · Фукуок, Вьетнам</span>
+          </div>
+
+          <h1 class="reveal mt-7 text-[clamp(2.75rem,7.2vw,5.6rem)] font-semibold leading-[0.95] tracking-tightest" style="--delay: 80ms">
+            Свой человек
+            <span class="mt-1 block font-serif text-[1.12em] font-medium italic tracking-[-0.02em] text-lagoon-700">на&nbsp;Фукуоке</span>
+          </h1>
+
+          <p class="reveal mt-7 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl sm:leading-relaxed" style="--delay: 160ms">
+            Встречу у выхода из аэропорта, подберу жильё, найду надёжный байк и решу любой вопрос на месте.
+            Вы отдыхаете — всё остальное беру на себя.
+          </p>
+
+          <div class="reveal mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style="--delay: 240ms">
+            <a href="https://t.me/razumovdimka" target="_blank" rel="noopener"
+               class="group inline-flex items-center justify-center gap-3 rounded-full bg-ink py-2 pl-2 pr-7 text-base font-semibold text-paper shadow-[0_18px_40px_-18px_rgba(16,32,30,0.7)] transition duration-300 hover:-translate-y-0.5 hover:bg-lagoon-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-tg text-white transition duration-300 group-hover:rotate-[-12deg]">
+                <svg class="h-5 w-5" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              </span>
+              Написать в Telegram
+            </a>
+            <a href="#services"
+               class="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-semibold text-ink ring-1 ring-ink/15 transition hover:bg-ink/5 hover:ring-ink/25">
+              Смотреть услуги
+              <svg class="h-4 w-4 transition group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+            </a>
+          </div>
+
+          <ul class="reveal mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[15px] font-medium text-ink-soft" style="--delay: 320ms">
+            <li class="flex items-center gap-2">
+              <span class="grid h-5 w-5 place-items-center rounded-full bg-lagoon-500/15 text-lagoon-700"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg></span>
+              Живу на острове
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="grid h-5 w-5 place-items-center rounded-full bg-lagoon-500/15 text-lagoon-700"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg></span>
+              Говорю по-русски
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="grid h-5 w-5 place-items-center rounded-full bg-lagoon-500/15 text-lagoon-700"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg></span>
+              Без посредников
+            </li>
+          </ul>
+        </div>
+
+        <!-- Коллаж: открытка с закатом + сообщение + «посадочный» встречи -->
+        <div class="reveal relative mx-auto mb-8 w-full max-w-[26rem] lg:col-span-5 lg:max-w-none" style="--delay: 200ms" aria-hidden="true">
+          <figure class="postcard relative aspect-[4/5] overflow-hidden rounded-[2.25rem] shadow-[0_40px_80px_-40px_rgba(16,32,30,0.55)] ring-1 ring-ink/5">
+            <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="pc-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#F4DCD3"/>
+                  <stop offset=".45" stop-color="#F7B58C"/>
+                  <stop offset=".66" stop-color="#F2875A"/>
+                </linearGradient>
+                <radialGradient id="pc-glow" cx=".5" cy=".5" r=".5">
+                  <stop offset="0" stop-color="#FFE7C2" stop-opacity=".95"/>
+                  <stop offset="1" stop-color="#FFE7C2" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="pc-sun" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FFF6E4"/>
+                  <stop offset="1" stop-color="#FFC07A"/>
+                </linearGradient>
+                <linearGradient id="pc-sea" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3C8F8A"/>
+                  <stop offset=".45" stop-color="#145651"/>
+                  <stop offset="1" stop-color="#072B28"/>
+                </linearGradient>
+              </defs>
+
+              <rect width="400" height="330" fill="url(#pc-sky)"/>
+              <circle cx="180" cy="300" r="160" fill="url(#pc-glow)"/>
+              <circle class="pc-sun" cx="180" cy="298" r="58" fill="url(#pc-sun)"/>
+
+              <g fill="#FFF4EC" opacity=".6">
+                <rect x="34" y="118" width="124" height="6" rx="3"/>
+                <rect x="66" y="132" width="72" height="5" rx="2.5"/>
+                <rect x="232" y="78" width="96" height="5" rx="2.5"/>
+              </g>
+              <g fill="none" stroke="#7A3F35" stroke-opacity=".5" stroke-width="2" stroke-linecap="round">
+                <path d="M112 186q6-6 12 0q6-6 12 0"/>
+                <path d="M146 166q4-4 8 0q4-4 8 0"/>
+              </g>
+
+              <path d="M-10 322C30 302 62 296 96 306c26-10 56-6 82 16z" fill="#9C5A55" opacity=".5"/>
+
+              <rect y="320" width="400" height="180" fill="url(#pc-sea)"/>
+              <g class="pc-shimmer" fill="#FFD9A8">
+                <rect x="128" y="330" width="104" height="4" rx="2" opacity=".9"/>
+                <rect x="144" y="344" width="72" height="4" rx="2" opacity=".75"/>
+                <rect x="155" y="358" width="50" height="3" rx="1.5" opacity=".6"/>
+                <rect x="163" y="372" width="34" height="3" rx="1.5" opacity=".45"/>
+                <rect x="171" y="387" width="18" height="3" rx="1.5" opacity=".3"/>
+              </g>
+
+              <g class="pc-boat" fill="#0B2A27">
+                <path d="M58 376h46l-7 8H65z"/>
+                <path d="M80 374v-32l20 30z"/>
+              </g>
+
+              <path d="M190 500c60-34 132-50 220-54v54z" fill="#E2BE95"/>
+              <g fill="#0A2624">
+                <path d="M344 486c-10-96-26-206-46-310h8c22 104 38 214 52 310z"/>
+                <path d="M300 170c-40-20-80-10-110 30 35-30 72-32 110-24z"/>
+                <path d="M300 170c-20-40-50-60-85-65 33 17 60 37 81 69z"/>
+                <path d="M300 170c15-45 45-65 80-65-30 15-55 35-74 69z"/>
+                <path d="M300 170c40-20 80-10 110 30-35-28-70-32-106-22z"/>
+                <path d="M300 172c-25 13-45 38-50 68 15-28 32-48 52-62z"/>
+                <path d="M300 172c25 16 45 40 50 68-15-28-32-48-50-60z"/>
+                <circle cx="298" cy="180" r="6"/>
+                <circle cx="309" cy="182" r="5"/>
+              </g>
+            </svg>
+
+            <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 text-xs font-semibold text-ink shadow-sm backdrop-blur-md">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+              Онг Ланг · закат
+            </span>
+          </figure>
+
+          <!-- Сообщение -->
+          <div class="float absolute -right-3 top-16 w-[15.5rem] rounded-[1.25rem] rounded-tr-md bg-white p-3.5 shadow-[0_24px_50px_-20px_rgba(16,32,30,0.45)] ring-1 ring-ink/5 sm:-right-8">
+            <div class="flex items-center gap-2.5">
+              <span class="grid h-8 w-8 place-items-center rounded-full bg-lagoon-800 text-[10px] font-bold text-paper">СФ</span>
+              <span class="leading-tight">
+                <b class="block text-[13px] font-semibold">Свой на Фукуоке</b>
+                <span class="text-[11px] text-lagoon-500">в сети</span>
+              </span>
+            </div>
+            <p class="mt-2.5 text-[14px] leading-snug text-ink">Буду ждать вас у выхода из аэропорта 👋</p>
+          </div>
+
+          <!-- «Посадочный» встречи -->
+          <div class="float float--delayed absolute -bottom-8 -left-3 w-[17.5rem] rounded-[1.25rem] bg-paper shadow-[0_24px_50px_-20px_rgba(16,32,30,0.5)] ring-1 ring-ink/5 sm:-left-10">
+            <div class="flex items-center justify-between px-4 pt-3.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-soft">
+              <span>Встреча</span>
+              <span class="text-lagoon-500">Подтверждено</span>
+            </div>
+            <div class="flex items-end gap-3 px-4 pb-3.5 pt-1.5">
+              <div>
+                <p class="text-[1.75rem] font-semibold leading-none tracking-tight">PQC</p>
+                <p class="mt-1 text-[11px] text-ink-soft">Аэропорт</p>
+              </div>
+              <div class="relative mb-5 flex-1 border-t-2 border-dashed border-ink/20">
+                <svg class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-paper text-sunset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+              </div>
+              <div class="text-right">
+                <p class="text-[1.75rem] font-semibold leading-none tracking-tight">Отель</p>
+                <p class="mt-1 text-[11px] text-ink-soft">или вилла</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 border-t border-dashed border-ink/15 px-4 py-3 text-[11px] leading-tight">
+              <span><span class="block text-ink-soft">Где</span><b class="font-semibold">у выхода</b></span>
+              <span><span class="block text-ink-soft">Рейс</span><b class="font-semibold">любой</b></span>
+              <span><span class="block text-ink-soft">Пассажир</span><b class="font-semibold">Вы</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Бегущая строка -->
+      <div class="marquee relative border-y border-ink/10 bg-paper-deep/60 py-5" aria-label="Места на Фукуоке, где я помогаю">
+        <div class="marquee-track">
+          <ul class="marquee-list">
+            <li>Аэропорт PQC</li><li>Лонг Бич</li><li>Бай Сао</li><li>Онг Ланг</li><li>Дуонгдонг</li><li>Ночной рынок</li><li>Ан Тхой</li><li>Ганзау</li><li>Сансет Таун</li>
+          </ul>
+          <ul class="marquee-list" aria-hidden="true">
+            <li>Аэропорт PQC</li><li>Лонг Бич</li><li>Бай Сао</li><li>Онг Ланг</li><li>Дуонгдонг</li><li>Ночной рынок</li><li>Ан Тхой</li><li>Ганзау</li><li>Сансет Таун</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= УСЛУГИ ================= -->
+    <section id="services" class="py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="flex items-center gap-3 text-sm font-medium text-ink-soft">
+              <span class="grid h-7 min-w-[1.75rem] place-items-center rounded-full px-2 text-xs font-semibold text-ink ring-1 ring-ink/15">01</span>
+              Услуги
+            </p>
+            <h2 class="mt-5 max-w-2xl text-[clamp(2.2rem,5vw,3.75rem)] font-semibold leading-[1.02] tracking-tightest">
+              Всё, что нужно <span class="font-serif text-[1.1em] font-medium italic tracking-[-0.01em] text-lagoon-700">на&nbsp;острове</span>
+            </h2>
+          </div>
+          <p class="max-w-sm text-lg leading-relaxed text-ink-soft">Выберите то, что нужно, — или доверьте мне всю организацию поездки.</p>
+        </div>
+
+        <div class="mt-14 grid gap-4 lg:grid-cols-3 lg:gap-5">
+
+          <!-- Встреча в аэропорту -->
+          <article class="spotlight reveal relative overflow-hidden rounded-[2rem] bg-white p-7 ring-1 ring-ink/[0.06] sm:p-9 lg:col-span-2">
+            <div class="grid gap-8 sm:grid-cols-2 sm:items-center">
+              <div>
+                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sunset/10 text-sunset">
+                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                </span>
+                <h3 class="mt-6 text-2xl font-semibold tracking-tight sm:text-[1.75rem]">Встреча в аэропорту</h3>
+                <p class="mt-3 leading-relaxed text-ink-soft">Буду ждать вас у выхода из аэропорта — даже если рейс ночной. Довезу до отеля и помогу освоиться в первый день.</p>
+                <ul class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">Трансфер до отеля или виллы</li>
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">SIM-карта с интернетом</li>
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">Обмен денег по хорошему курсу</li>
+                </ul>
+              </div>
+
+              <div class="relative overflow-hidden rounded-[1.5rem] bg-paper" aria-hidden="true">
+                <svg class="block h-auto w-full" viewBox="0 0 300 220">
+                  <defs>
+                    <pattern id="route-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="2" cy="2" r="1.2" fill="#10201E" opacity=".13"/>
+                    </pattern>
+                  </defs>
+                  <rect width="300" height="220" fill="url(#route-dots)"/>
+                  <path d="M52 168C100 168 104 84 160 92s88-40 96-50" fill="none" stroke="#F26A3D" stroke-opacity=".18" stroke-width="10" stroke-linecap="round"/>
+                  <path class="route-path" d="M52 168C100 168 104 84 160 92s88-40 96-50" fill="none" stroke="#F26A3D" stroke-width="2.5" stroke-dasharray="6 7" stroke-linecap="round"/>
+
+                  <circle class="route-pulse" cx="52" cy="168" r="14" fill="#10201E" opacity=".12"/>
+                  <circle cx="52" cy="168" r="7" fill="#10201E"/>
+                  <text x="52" y="198" text-anchor="middle" font-size="13" font-weight="600" fill="#10201E">PQC</text>
+
+                  <path d="M256 20a12 12 0 0 1 12 12c0 9-12 20-12 20s-12-11-12-20a12 12 0 0 1 12-12z" fill="#0F534D"/>
+                  <circle cx="256" cy="32" r="4" fill="#F5F0E8"/>
+                  <text x="238" y="36" text-anchor="end" font-size="13" font-weight="600" fill="#10201E">Ваш отель</text>
+
+                  <rect x="82" y="112" width="158" height="28" rx="14" fill="#10201E"/>
+                  <text x="161" y="130.5" text-anchor="middle" font-size="12" font-weight="600" fill="#F5F0E8">в любую точку острова</text>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- Подбор жилья -->
+          <article class="spotlight reveal group relative flex flex-col overflow-hidden rounded-[2rem] bg-white p-7 ring-1 ring-ink/[0.06] sm:p-9 lg:row-span-2" style="--delay: 100ms">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-lagoon-500/10 text-lagoon-700">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            </span>
+            <h3 class="mt-6 text-2xl font-semibold tracking-tight sm:text-[1.75rem]">Подбор жилья</h3>
+            <p class="mt-3 leading-relaxed text-ink-soft">Подберу отель, апартаменты или виллу под ваш бюджет и формат отдыха. Проверяю варианты сам — без сюрпризов при заселении.</p>
+
+            <div class="listing-stack relative my-8 min-h-[15rem] flex-1" aria-hidden="true">
+              <div class="listing listing--3">
+                <div class="listing-img img-bungalow"></div>
+                <div class="mx-1 mt-3 h-2.5 w-2/3 rounded-full bg-ink/10"></div>
+                <div class="mx-1 mb-1.5 mt-2 h-2 w-1/3 rounded-full bg-ink/[0.07]"></div>
+              </div>
+              <div class="listing listing--2">
+                <div class="listing-img img-apart"></div>
+                <div class="mx-1 mt-3 h-2.5 w-2/3 rounded-full bg-ink/10"></div>
+                <div class="mx-1 mb-1.5 mt-2 h-2 w-1/3 rounded-full bg-ink/[0.07]"></div>
+              </div>
+              <div class="listing listing--1">
+                <div class="listing-img img-villa relative">
+                  <span class="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-lagoon-700 shadow-sm">✓ проверено лично</span>
+                </div>
+                <p class="mt-2.5 px-1 text-sm font-semibold">Вилла у моря</p>
+                <p class="px-1 pb-1 text-xs text-ink-soft">Онг Ланг · бассейн</p>
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-[15px] font-medium">
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-5 w-5 shrink-0 text-lagoon-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>Районы под ваш стиль отдыха</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-5 w-5 shrink-0 text-lagoon-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>Фото и видео с места</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-5 w-5 shrink-0 text-lagoon-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 12.75 6 6 9-13.5"/></svg>Помощь с договором и залогом</li>
+            </ul>
+          </article>
+
+          <!-- Аренда байка -->
+          <article class="spotlight reveal relative overflow-hidden rounded-[2rem] bg-white p-7 ring-1 ring-ink/[0.06] sm:p-9 lg:col-span-2">
+            <div class="grid gap-8 sm:grid-cols-2 sm:items-center">
+              <div class="bike-scene relative order-2 grid h-56 place-items-center overflow-hidden rounded-[1.5rem] bg-lagoon-50 sm:order-1" aria-hidden="true">
+                <div class="bike-sun"></div>
+                <svg class="bike relative h-28 w-auto text-lagoon-800" viewBox="0 0 120 80" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 56c0-14 10-20 24-20h16c4 0 6 4 4 8l-4 12z" fill="currentColor" fill-opacity=".12"/>
+                  <path d="M24 31h26" stroke-width="5"/>
+                  <path d="M52 56h22"/>
+                  <path d="M74 56c4-12 6-24 8-36"/>
+                  <path d="M82 20l12 42"/>
+                  <path d="M74 18h16"/>
+                  <circle cx="86" cy="28" r="2.5" fill="currentColor"/>
+                  <circle class="bike-wheel" cx="26" cy="62" r="11" stroke-dasharray="52 17"/>
+                  <circle class="bike-wheel" cx="94" cy="62" r="11" stroke-dasharray="52 17"/>
+                </svg>
+                <div class="bike-road"></div>
+              </div>
+
+              <div class="order-1 sm:order-2">
+                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-tg/10 text-tg">
+                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/></svg>
+                </span>
+                <h3 class="mt-6 text-2xl font-semibold tracking-tight sm:text-[1.75rem]">Аренда байка</h3>
+                <p class="mt-3 leading-relaxed text-ink-soft">Найду надёжный байк или скутер и привезу прямо к дому. Расскажу про местные правила, заправки и лучшие маршруты.</p>
+                <ul class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">Доставка к дому</li>
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">Шлемы в комплекте</li>
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">Проверенные байки</li>
+                  <li class="rounded-full bg-paper px-3.5 py-1.5">Карта пляжей</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Решение проблем на месте -->
+          <article class="reveal relative overflow-hidden rounded-[2rem] bg-lagoon-900 p-7 text-paper sm:p-10 lg:col-span-3 lg:p-12">
+            <div class="pointer-events-none absolute -right-24 -top-32 h-96 w-96 rounded-full bg-lagoon-500/30 blur-3xl" aria-hidden="true"></div>
+            <div class="pointer-events-none absolute -bottom-48 left-1/4 h-80 w-80 rounded-full bg-sunset/10 blur-3xl" aria-hidden="true"></div>
+
+            <div class="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-14">
+              <div>
+                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sunset text-white shadow-lg shadow-sunset/30">
+                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></svg>
+                </span>
+                <h3 class="mt-6 text-[clamp(1.9rem,4vw,2.75rem)] font-semibold leading-[1.05] tracking-tight">
+                  Решаю проблемы <span class="font-serif text-[1.1em] font-medium italic text-lagoon-300">на&nbsp;месте</span>
+                </h3>
+                <p class="mt-4 max-w-lg leading-relaxed text-paper/70">
+                  Заболели, потеряли документы, сломался байк или нужен переводчик в больнице, банке или полиции —
+                  напишите, приеду и помогу разобраться.
+                </p>
+                <a href="https://t.me/razumovdimka" target="_blank" rel="noopener"
+                   class="group mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full bg-paper py-2 pl-2 pr-7 font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:w-auto">
+                  <span class="grid h-10 w-10 place-items-center rounded-full bg-tg text-white">
+                    <svg class="h-[18px] w-[18px]" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                  </span>
+                  Нужна помощь
+                </a>
+              </div>
+
+              <ul class="flex flex-wrap gap-2.5 text-[15px]">
+                <li class="rounded-full bg-white/[0.06] px-4 py-2.5 ring-1 ring-white/15">Перевод у врача</li>
+                <li class="rounded-full bg-white/[0.06] px-4 py-2.5 ring-1 ring-white/15">Потеря документов</li>
+                <li class="rounded-full bg-white/[0.06] px-4 py-2.5 ring-1 ring-white/15">Поломка байка</li>
+                <li class="rounded-full bg-white/[0.06] px-4 py-2.5 ring-1 ring-white/15">Полиция</li>
+                <li class="rounded-full bg-white/[0.06] px-4 py-2.5 ring-1 ring-white/15">Банк и деньги</li>
+                <li class="rounded-full bg-white/[0.06] px-4 py-2.5 ring-1 ring-white/15">Аптека и лекарства</li>
+                <li class="rounded-full bg-sunset/90 px-4 py-2.5 font-medium text-white">Любой другой вопрос</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= КАК ЭТО РАБОТАЕТ ================= -->
+    <section id="how" class="border-y border-ink/10 bg-paper-deep/60 py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal">
+          <p class="flex items-center gap-3 text-sm font-medium text-ink-soft">
+            <span class="grid h-7 min-w-[1.75rem] place-items-center rounded-full px-2 text-xs font-semibold text-ink ring-1 ring-ink/15">02</span>
+            Как это работает
+          </p>
+          <h2 class="mt-5 max-w-2xl text-[clamp(2.2rem,5vw,3.75rem)] font-semibold leading-[1.02] tracking-tightest">
+            Три шага <span class="font-serif text-[1.1em] font-medium italic tracking-[-0.01em] text-lagoon-700">до&nbsp;отдыха</span>
+          </h2>
+        </div>
+
+        <ol class="mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
+          <li class="reveal relative border-t border-ink/20 pt-8">
+            <span class="absolute -top-[5px] left-0 h-2.5 w-2.5 rounded-full bg-sunset" aria-hidden="true"></span>
+            <span class="font-serif text-7xl font-medium italic leading-none text-ink/85">01</span>
+            <h3 class="mt-6 text-xl font-semibold tracking-tight">Напишите в Telegram</h3>
+            <p class="mt-3 leading-relaxed text-ink-soft">Расскажите даты, сколько вас и что нужно организовать — отвечу и уточню детали.</p>
+          </li>
+          <li class="reveal relative border-t border-ink/20 pt-8" style="--delay: 100ms">
+            <span class="absolute -top-[5px] left-0 h-2.5 w-2.5 rounded-full bg-sunset" aria-hidden="true"></span>
+            <span class="font-serif text-7xl font-medium italic leading-none text-ink/85">02</span>
+            <h3 class="mt-6 text-xl font-semibold tracking-tight">Обсудим варианты</h3>
+            <p class="mt-3 leading-relaxed text-ink-soft">Подберу жильё и байк, пришлю фото и видео, договоримся о времени встречи.</p>
+          </li>
+          <li class="reveal relative border-t border-ink/20 pt-8" style="--delay: 200ms">
+            <span class="absolute -top-[5px] left-0 h-2.5 w-2.5 rounded-full bg-sunset" aria-hidden="true"></span>
+            <span class="font-serif text-7xl font-medium italic leading-none text-ink/85">03</span>
+            <h3 class="mt-6 text-xl font-semibold tracking-tight">Прилетайте</h3>
+            <p class="mt-3 leading-relaxed text-ink-soft">Буду ждать вас у выхода из аэропорта. Дальше — только море, закаты и отдых.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= ОТЗЫВЫ ================= -->
+    <!-- Отзывы ниже — примеры для макета. Замените их на настоящие отзывы клиентов. -->
+    <section id="reviews" class="py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p class="flex items-center gap-3 text-sm font-medium text-ink-soft">
+              <span class="grid h-7 min-w-[1.75rem] place-items-center rounded-full px-2 text-xs font-semibold text-ink ring-1 ring-ink/15">03</span>
+              Отзывы
+            </p>
+            <h2 class="mt-5 max-w-2xl text-[clamp(2.2rem,5vw,3.75rem)] font-semibold leading-[1.02] tracking-tightest">
+              Гости <span class="font-serif text-[1.1em] font-medium italic tracking-[-0.01em] text-lagoon-700">о&nbsp;поездках</span>
+            </h2>
+          </div>
+          <a href="#leave-review"
+             class="group inline-flex items-center justify-center gap-2 self-start rounded-full px-6 py-3.5 font-semibold ring-1 ring-ink/15 transition hover:bg-ink/5 hover:ring-ink/25 lg:self-auto">
+            <svg class="h-5 w-5 text-sunset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg>
+            Оставить отзыв
+          </a>
+        </div>
+
+        <div class="mt-14 grid gap-4 lg:grid-cols-5 lg:gap-5">
+
+          <figure class="reveal relative flex flex-col overflow-hidden rounded-[2rem] bg-lagoon-100 p-8 sm:p-12 lg:col-span-3 lg:row-span-2">
+            <span class="pointer-events-none absolute right-8 top-6 font-serif text-[11rem] italic leading-[0.7] text-lagoon-300/70" aria-hidden="true">“</span>
+            <div class="relative flex gap-1 text-sunset" aria-label="Оценка 5 из 5">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="relative mt-8 font-serif text-[clamp(1.75rem,3.2vw,2.6rem)] font-medium italic leading-[1.12] text-ink">
+              «Прилетели ночью с двумя детьми — нас встретили, довезли до виллы и даже купили воды и фруктов на утро. Ни одного стресса за весь отпуск.»
+            </blockquote>
+            <figcaption class="relative mt-auto flex items-center gap-3 pt-10">
+              <span class="grid h-12 w-12 place-items-center rounded-full bg-lagoon-800 text-sm font-semibold text-paper">АС</span>
+              <span class="leading-tight">
+                <b class="block font-semibold">Анна и Сергей</b>
+                <span class="text-sm text-ink-soft">Москва · встреча и жильё</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal flex flex-col rounded-[2rem] bg-white p-7 ring-1 ring-ink/[0.06] sm:p-8 lg:col-span-2" style="--delay: 100ms">
+            <div class="flex gap-1 text-sunset" aria-label="Оценка 5 из 5">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="mt-5 flex-1 text-[17px] leading-relaxed">
+              «Байк привезли прямо к дому, всё объяснили про местные правила и отметили на карте классные пляжи. Когда спустило колесо — помогли за полчаса.»
+            </blockquote>
+            <figcaption class="mt-7 flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-sunset text-sm font-semibold text-white">ДК</span>
+              <span class="leading-tight">
+                <b class="block font-semibold">Дмитрий</b>
+                <span class="text-sm text-ink-soft">Санкт-Петербург · аренда байка</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="reveal flex flex-col rounded-[2rem] bg-white p-7 ring-1 ring-ink/[0.06] sm:p-8 lg:col-span-2" style="--delay: 200ms">
+            <div class="flex gap-1 text-sunset" aria-label="Оценка 5 из 5">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="mt-5 flex-1 text-[17px] leading-relaxed">
+              «Отравилась на третий день — сама бы не справилась. Отвезли в клинику, переводили врачу и помогли со страховкой. Огромное спасибо!»
+            </blockquote>
+            <figcaption class="mt-7 flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-tg text-sm font-semibold text-white">ЕВ</span>
+              <span class="leading-tight">
+                <b class="block font-semibold">Екатерина</b>
+                <span class="text-sm text-ink-soft">Казань · помощь на месте</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Форма отзыва: на сайте нет сервера, поэтому отзыв уходит в Telegram или WhatsApp,
+             а на сайт вы добавляете его сами после проверки -->
+        <div id="leave-review" class="reveal mt-5 grid gap-10 rounded-[2rem] bg-white p-7 ring-1 ring-ink/[0.06] sm:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14 lg:p-12">
+          <div>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sunset/10 text-sunset">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg>
+            </span>
+            <h3 class="mt-6 text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[1.05] tracking-tight">
+              Были у меня в&nbsp;гостях?
+              <span class="block font-serif text-[1.1em] font-medium italic text-lagoon-700">Оставьте отзыв</span>
+            </h3>
+            <p class="mt-4 max-w-md leading-relaxed text-ink-soft">
+              Пара слов о поездке очень помогает другим путешественникам. Отзыв придёт мне в Telegram или WhatsApp —
+              после проверки я опубликую его на сайте.
+            </p>
+          </div>
+
+          <form id="review-form" class="grid gap-5" data-telegram="razumovdimka" data-whatsapp="84339773756">
+            <div class="grid gap-5 sm:grid-cols-2">
+              <label class="block">
+                <span class="mb-2 block text-sm font-medium">Ваше имя</span>
+                <input class="field" name="name" required maxlength="60" autocomplete="given-name" placeholder="Например, Анна">
+              </label>
+              <label class="block">
+                <span class="mb-2 block text-sm font-medium">Город <span class="font-normal text-ink-soft">— по желанию</span></span>
+                <input class="field" name="city" maxlength="60" autocomplete="address-level2" placeholder="Москва">
+              </label>
+            </div>
+
+            <fieldset>
+              <legend class="mb-2 text-sm font-medium">Оценка</legend>
+              <div class="rating">
+                <input type="radio" id="rate-5" name="rating" value="5" checked><label for="rate-5" title="Отлично"><span class="sr-only">5 из 5</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></label>
+                <input type="radio" id="rate-4" name="rating" value="4"><label for="rate-4" title="Хорошо"><span class="sr-only">4 из 5</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></label>
+                <input type="radio" id="rate-3" name="rating" value="3"><label for="rate-3" title="Нормально"><span class="sr-only">3 из 5</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></label>
+                <input type="radio" id="rate-2" name="rating" value="2"><label for="rate-2" title="Плохо"><span class="sr-only">2 из 5</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></label>
+                <input type="radio" id="rate-1" name="rating" value="1"><label for="rate-1" title="Очень плохо"><span class="sr-only">1 из 5</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></label>
+              </div>
+            </fieldset>
+
+            <label class="block">
+              <span class="mb-2 block text-sm font-medium">Как прошла поездка?</span>
+              <textarea class="field resize-none" name="message" required rows="4" maxlength="1000" placeholder="Что понравилось, чем я помог…"></textarea>
+            </label>
+
+            <div class="flex flex-col gap-3 pt-1 sm:flex-row">
+              <button type="submit" value="tg"
+                      class="group inline-flex items-center justify-center gap-3 rounded-full bg-ink py-2 pl-2 pr-6 font-semibold text-paper transition duration-300 hover:-translate-y-0.5 hover:bg-lagoon-800">
+                <span class="grid h-10 w-10 place-items-center rounded-full bg-tg text-white">
+                  <svg class="h-[18px] w-[18px]" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                </span>
+                Отправить в Telegram
+              </button>
+              <button type="submit" value="wa"
+                      class="inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-4 font-semibold ring-1 ring-ink/15 transition hover:bg-ink/5 hover:ring-ink/25">
+                <svg class="h-5 w-5 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                Отправить в WhatsApp
+              </button>
+            </div>
+            <p id="review-status" class="hidden rounded-2xl bg-lagoon-50 px-4 py-3 text-sm text-lagoon-700" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= КОНТАКТЫ И ФУТЕР ================= -->
+  <footer id="contacts" class="footer relative overflow-hidden bg-lagoon-900 text-paper">
+    <div class="pointer-events-none absolute right-[-10rem] top-24 h-[30rem] w-[30rem] rounded-full bg-sunset/[0.12] blur-[120px]" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -left-40 -top-40 h-96 w-96 rounded-full bg-lagoon-500/25 blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-14 py-24 sm:py-32 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
+      <div class="reveal">
+        <p class="flex items-center gap-3 text-sm font-medium text-paper/60">
+          <span class="grid h-7 min-w-[1.75rem] place-items-center rounded-full px-2 text-xs font-semibold text-paper ring-1 ring-white/20">04</span>
+          Контакты
+        </p>
+        <h2 class="mt-6 text-[clamp(2.6rem,6vw,4.5rem)] font-semibold leading-[0.98] tracking-tightest">
+          Прилетайте.
+          <span class="block font-serif text-[1.1em] font-medium italic tracking-[-0.01em] text-sunset-soft">Остальное — на&nbsp;мне.</span>
+        </h2>
+        <p class="mt-7 max-w-xl text-lg leading-relaxed text-paper/70">Напишите в мессенджер или оставьте заявку — отвечу, подскажу и всё организую к вашему прилёту.</p>
+
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href="https://t.me/razumovdimka" target="_blank" rel="noopener"
+             class="group inline-flex items-center justify-center gap-3 rounded-full bg-paper py-2 pl-2 pr-7 text-base font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-white">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-tg text-white transition duration-300 group-hover:rotate-[-12deg]">
+              <svg class="h-5 w-5" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </span>
+            Написать в Telegram
+          </a>
+          <a href="https://wa.me/84339773756" target="_blank" rel="noopener"
+             class="inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-4 font-semibold ring-1 ring-white/20 transition hover:bg-white/10">
+            <svg class="h-5 w-5 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Заявка на поездку. data-endpoint — адрес сервера заявок (см. MyServer/Инструкция.md).
+           Пока он пустой, заявка открывается в Telegram с готовым текстом. -->
+      <form id="lead-form" class="reveal rounded-[2rem] bg-paper p-6 text-ink shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)] sm:p-8" style="--delay: 120ms"
+            data-endpoint="https://script.google.com/macros/s/AKfycbyGIWoYmHHZvUtcFHW0a3Jww4gMHCz_arxQOR7S1UK6UDVZQ7wMPkR6LKgJUXU0hn8j/exec" data-telegram="razumovdimka">
+        <h3 class="text-2xl font-semibold tracking-tight">Заявка на поездку</h3>
+        <p class="mt-1.5 text-[15px] text-ink-soft">Отвечу в Telegram, WhatsApp или перезвоню — как вам удобнее.</p>
+
+        <div class="mt-6 grid gap-4">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="block">
+              <span class="mb-2 block text-sm font-medium">Имя</span>
+              <input class="field field--light" name="name" required maxlength="80" autocomplete="given-name" placeholder="Как к вам обращаться">
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-medium">Где ответить</span>
+              <select class="field field--light" name="channel">
+                <option value="telegram">Telegram</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="phone">Позвонить</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium">Ник или номер</span>
+            <input class="field field--light" name="contact" required maxlength="100" autocomplete="off" placeholder="@ник или номер">
+          </label>
+
+          <div class="grid grid-cols-2 gap-4">
+            <label class="block">
+              <span class="mb-2 block text-sm font-medium">Дата прилёта</span>
+              <input class="field field--light" type="date" name="arrival">
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-medium">Сколько вас</span>
+              <input class="field field--light" type="number" name="guests" min="1" max="99" inputmode="numeric" placeholder="2">
+            </label>
+          </div>
+
+          <fieldset>
+            <legend class="mb-2 text-sm font-medium">Что нужно</legend>
+            <div class="flex flex-wrap gap-2">
+              <label><input type="checkbox" name="services" value="airport" class="peer sr-only"><span class="inline-flex cursor-pointer rounded-full bg-white px-3.5 py-2 text-sm font-medium ring-1 ring-ink/10 transition peer-checked:bg-ink peer-checked:text-paper peer-checked:ring-ink peer-focus-visible:ring-2 peer-focus-visible:ring-lagoon-500">Встреча в аэропорту</span></label>
+              <label><input type="checkbox" name="services" value="housing" class="peer sr-only"><span class="inline-flex cursor-pointer rounded-full bg-white px-3.5 py-2 text-sm font-medium ring-1 ring-ink/10 transition peer-checked:bg-ink peer-checked:text-paper peer-checked:ring-ink peer-focus-visible:ring-2 peer-focus-visible:ring-lagoon-500">Жильё</span></label>
+              <label><input type="checkbox" name="services" value="bike" class="peer sr-only"><span class="inline-flex cursor-pointer rounded-full bg-white px-3.5 py-2 text-sm font-medium ring-1 ring-ink/10 transition peer-checked:bg-ink peer-checked:text-paper peer-checked:ring-ink peer-focus-visible:ring-2 peer-focus-visible:ring-lagoon-500">Байк</span></label>
+              <label><input type="checkbox" name="services" value="help" class="peer sr-only"><span class="inline-flex cursor-pointer rounded-full bg-white px-3.5 py-2 text-sm font-medium ring-1 ring-ink/10 transition peer-checked:bg-ink peer-checked:text-paper peer-checked:ring-ink peer-focus-visible:ring-2 peer-focus-visible:ring-lagoon-500">Помощь на месте</span></label>
+            </div>
+          </fieldset>
+
+          <label class="block">
+            <span class="mb-2 block text-sm font-medium">Комментарий <span class="font-normal text-ink-soft">— по желанию</span></span>
+            <textarea class="field field--light resize-none" name="message" rows="3" maxlength="1000" placeholder="Пожелания и вопросы"></textarea>
+          </label>
+
+          <!-- Ловушка для спам-ботов: поле скрыто от людей -->
+          <label class="hp" aria-hidden="true">Сайт <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+
+          <button type="submit" class="mt-1 inline-flex items-center justify-center rounded-full bg-ink px-7 py-4 font-semibold text-paper transition duration-300 hover:-translate-y-0.5 hover:bg-lagoon-800 disabled:pointer-events-none disabled:opacity-60">
+            Отправить заявку
+          </button>
+          <p id="lead-status" class="hidden" role="status" aria-live="polite"></p>
+          <p class="text-xs leading-relaxed text-ink-soft">Отправляя заявку, вы соглашаетесь, что я свяжусь с вами по указанным контактам.</p>
+        </div>
+      </form>
+      </div>
+
+      <div class="grid gap-12 border-t border-white/10 py-14 md:grid-cols-[1.2fr_1fr_0.7fr]">
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/50">Контакты</h3>
+          <ul class="mt-6 space-y-4">
+            <li>
+              <a href="https://t.me/razumovdimka" target="_blank" rel="noopener" class="group flex items-center gap-3.5">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-tg">
+                  <svg class="h-[18px] w-[18px]" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                </span>
+                <span><span class="block text-xs text-paper/50">Telegram</span>@razumovdimka</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+84339773756" class="group flex items-center gap-3.5">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-lagoon-500">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+                </span>
+                <span><span class="block text-xs text-paper/50">Телефон</span>+84 339 773 756 <span class="text-paper/50">(Вьетнам)</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/84339773756" target="_blank" rel="noopener" class="group flex items-center gap-3.5">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#25D366]">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                </span>
+                <span><span class="block text-xs text-paper/50">WhatsApp</span>Написать в WhatsApp</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:razumovdimka@gmail.com" class="group flex items-center gap-3.5">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-sunset">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                </span>
+                <span><span class="block text-xs text-paper/50">Email</span>razumovdimka@gmail.com</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/50">Где я</h3>
+          <p class="mt-6 text-lg font-medium">Остров Фукуок, Вьетнам</p>
+          <p class="mt-2 flex items-center gap-2 text-paper/70">
+            <span class="live-dot" aria-hidden="true"></span>
+            Сейчас на острове <span data-island-time class="tabular-nums text-paper">--:--</span>
+          </p>
+          <p class="mt-6 max-w-xs text-sm leading-relaxed text-paper/50">Отвечаю в Telegram и WhatsApp. Если срочно — просто позвоните.</p>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-paper/50">Навигация</h3>
+          <ul class="mt-6 space-y-3 text-paper/80">
+            <li><a href="#services" class="transition hover:text-white">Услуги</a></li>
+            <li><a href="#how" class="transition hover:text-white">Как это работает</a></li>
+            <li><a href="#reviews" class="transition hover:text-white">Отзывы</a></li>
+            <li><a href="#leave-review" class="transition hover:text-white">Оставить отзыв</a></li>
+            <li><a href="#top" class="transition hover:text-white">Наверх ↑</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 border-t border-white/10 py-7 text-sm text-paper/45 sm:flex-row sm:justify-between">
+        <p>© <span id="year">2026</span> Свой на Фукуоке</p>
+        <p>Русскоязычный помощник на острове Фукуок</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Плавающая кнопка Telegram (появляется при прокрутке) -->
+  <a id="fab-telegram" href="https://t.me/razumovdimka" target="_blank" rel="noopener" aria-label="Написать в Telegram"
+     class="fab fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-tg text-white shadow-xl shadow-tg/40">
+    <svg class="h-6 w-6" viewBox="4.3 5.15 14 14" fill="currentColor" aria-hidden="true"><path d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+  </a>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
